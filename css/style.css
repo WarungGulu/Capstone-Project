@@ -1,0 +1,460 @@
+/* ==================================== */
+/* 1. GLOBAL RESET & BOX MODEL          */
+/* ==================================== */
+html, body {
+    /* Layout dan Reset */
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    /* Mencegah scroll horizontal dari elemen 100vw */
+    overflow-x: hidden; 
+    
+    /* Tipografi Dasar */
+    font-family: 'Roboto', sans-serif; 
+    font-size: 16px; 
+    line-height: 1.6;
+    
+    /* Skema Warna */
+    color: #333; /* Warna teks dasar */
+    background-color: #f4f7f6; /* Warna latar belakang aplikasi yang lembut */
+}
+
+/* Menjamin padding dan border dihitung di dalam lebar elemen */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* ==================================== */
+/* 2. LAYOUT CONTAINER UTAMA            */
+/* ==================================== */
+.container-full {
+    width: 100%; 
+    max-width: 1200px;
+    /* Memusatkan konten */
+    margin: 0 auto; 
+    /* Padding di sisi untuk menjaga jarak dari tepi viewport */
+    padding: 0 2vw; 
+}
+
+.data-panel {
+    /* Layout */
+    width: 100%; 
+    padding: 20px;
+    margin-top: 25px; 
+    position: relative; 
+    z-index: 5; 
+    
+    /* Dekorasi */
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Judul dan Header */
+.data-panel h2 {
+    /* Menerapkan Poppins untuk judul agar menonjol */
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    margin: 10px 0 15px 0; /* Rapikan margin: top 10, bottom 15 */
+    color: #007bff;
+    font-weight: 700;
+}
+
+.data-panel h3 {
+    /* Menerapkan Poppins untuk subjudul */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #555;
+    margin-top: 25px;
+    margin-bottom: 15px; /* Tambahkan margin bottom untuk jarak ke elemen di bawahnya */
+}
+
+/* Membuat header filter menjadi flex container agar tombol sejajar */
+.data-panel h3.filter-header {
+    display: flex;
+    align-items: center; 
+    gap: 10px; 
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 15px 0;
+}
+
+
+/* ==================================== */
+/* 3. IMAGE SLIDER (FULL-WIDTH)         */
+/* ==================================== */
+#image-slider-container {
+    width: 100vw;
+    height: 100vh; /* tampil elegan untuk PC */
+    max-height: 600px; /* batas aman */
+    min-height: 300px; /* aman untuk HP */
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+@media (max-width: 768px) {
+    #image-slider-container {
+        height: 15vh; /* tinggi lebih besar saat di HP */
+    }
+}
+
+/* Styling setiap slide */
+#image-slider-container .slide {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#image-slider-container .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Aturan untuk slide aktif */
+#image-slider-container .slide.active {
+    display: block; 
+}
+
+/* Animasi Fade */
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+}
+
+/* Styling Caption */
+.slide-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6); 
+    color: white;
+    padding: 12px 20px; 
+    font-size: 1em;
+    text-align: center;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; 
+}
+
+/* --- Styling Indikator Titik --- */
+.slider-dots {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+}
+
+.dot {
+    cursor: pointer;
+    height: 12px;
+    width: 12px;
+    margin: 0 4px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.dot.active, .dot:hover {
+    background-color: #717171;
+}
+
+/* ==================================== */
+/* 4. FORM & FILTER STYLING             */
+/* ==================================== */
+
+/* Styling Tombol Upload */
+.btn-upload {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #28a745; 
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    margin-bottom: 5px;
+    transition: background-color 0.2s;
+    font-weight: 500;
+}
+
+.btn-upload:hover {
+    background-color: #218838;
+}
+
+/* Styling Pencarian (Search Group) */
+.search-group {
+    display: flex;
+    gap: 5px;
+}
+
+#search-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#search-btn {
+    padding: 10px 15px;
+    border: none;
+    background-color: #6c757d;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+#search-btn:hover {
+    background-color: #5a6268;
+}
+
+
+/* --- Feedback Validasi NIK --- */
+.validation-feedback {
+    margin: 10px 0;
+}
+
+.validation-feedback p {
+    font-size: 0.9em;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s;
+}
+
+.validation-feedback .icon {
+    margin-right: 5px;
+    font-weight: bold;
+    display: inline-block;
+    width: 15px;
+    text-align: center;
+}
+
+.validation-feedback .invalid {
+    color: #dc3545; /* Merah */
+}
+
+.validation-feedback .valid {
+    color: #28a745; /* Hijau */
+}
+
+
+/* --- Filter Wilayah --- */
+.badge-info {
+    font-size: 0.8em;
+    font-weight: normal;
+    background-color: #007bff;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    /* Dihapus margin-left karena sudah diatur oleh gap di .filter-header */
+}
+
+.filter-group-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-card {
+    flex: 1;
+    min-width: 150px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.filter-card label {
+    display: block;
+    font-size: 0.85em;
+    font-weight: bold;
+    color: #495057;
+    margin-bottom: 5px;
+}
+
+/* Styling Dropdown/Select */
+.filter-card select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 1em;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    /* Menghilangkan tampilan native dropdown dan menambahkan ikon kustom */
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 8px 10px;
+}
+
+.filter-card select:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Styling Tombol Reset (Ikon) */
+#reset-filter-btn.icon-reset {
+    /* Margin kiri otomatis agar tombol terpental ke kanan */
+    margin-left: auto; 
+    
+    padding: 5px 8px; 
+    border: 1px solid #ffc107;
+    background-color: #fff8e1; 
+    color: #343a40; 
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-family: 'Roboto', sans-serif; 
+    font-weight: 500;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+#reset-filter-btn.icon-reset:hover {
+    background-color: #ffecb3; 
+    border-color: #e0a800;
+}
+
+
+/* ==================================== */
+/* 5. TABEL DATA STYLING                */
+/* ==================================== */
+#data-table-container {
+    max-height: 60vh;
+    overflow-y: auto;
+    margin-top: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+#data-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Header & Cell Styling */
+#data-list th, #data-list td {
+    border: 1px solid #f2f2f2;
+    padding: 10px 8px;
+    text-align: left;
+    white-space: nowrap; 
+}
+
+/* Header Khusus */
+#data-list th {
+    background-color: #f8f8f8;
+    position: sticky; 
+    top: 0;
+    z-index: 2;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+/* Hover effect pada baris */
+#data-list tbody tr:hover {
+    background-color: #f0f8ff;
+}
+
+/* Styling Kolom Aksi (Tombol Navigasi) */
+.action-cell {
+    text-align: center;
+}
+
+.btn-map-link {
+    display: inline-block;
+    padding: 6px 10px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.btn-map-link:hover {
+    background-color: #0056b3;
+}
+
+.location-icon {
+    font-size: 1.2em; 
+    margin-right: 3px;
+}
+
+/* ... (Kode CSS lainnya di atas) ... */
+
+/* ==================================== */
+/* 6 FORM & FILTER STYLING             */
+/* ==================================== */
+/* BARU: Styling Tombol Unduh Template */
+.btn-template {
+    padding: 1px 1px;
+    color: #3fb1fd;
+    border-radius: 5px;
+    text-decoration: none; 
+    font-weight: 500;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.btn-template:hover {
+    background-color: #3b3b3ba9;
+}
+
+/* Styling status file agar berada di baris baru di bawah tombol */
+#file-status {
+    flex-basis: 100%; 
+    margin-top: 5px;
+    font-size: 0.9em;
+    font-weight: 500; 
+    color: #555; 
+    transition: color 0.3s ease-in-out; 
+}
+
+/* Gaya Status */
+
+/* 1. Status Awal / Idle (Belum ada file / Memproses) */
+#file-status.status-idle {
+    color: #ffc107; /* Kuning/Amber untuk peringatan */
+    animation: pulse-yellow 2s infinite; 
+}
+
+/* 2. Status Berhasil (File dimuat) */
+#file-status.status-success {
+    color: #28a745; /* Hijau */
+    font-weight: 700;
+}
+
+/* 3. Status Error (Gagal memproses file) */
+#file-status.status-error {
+    color: #dc3545; /* Merah */
+    font-weight: 700;
+}
+
+/* Keyframes untuk animasi berkedip (hanya untuk status idle) */
+@keyframes pulse-yellow {
+    0% { opacity: 1; }
+    50% { opacity: 0.8; }
+    100% { opacity: 1; }
+}

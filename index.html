@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Data dan Navigasi Bantuan Rakyat Miskin 📄</title>
+    <link  rel="stylesheet" href="css/font.css">    
+    <link rel="stylesheet" href="css/style.css"> 
+</head> 
+</head>
+<body>
+    <div id="image-slider-container">
+        <div class="slide fade"> 
+            <img src="images/bansos_slide_1.jpg" alt="Kegiatan Penyaluran Bansos">
+        </div>
+        <div class="slide fade"> 
+            <img src="images/bansos_slide_2.png" alt="Petugas Lapangan">
+        </div>
+        <div class="slide fade"> 
+            <img src="images/bansos_slide_3.jpg" alt="Foto Bersama">
+        </div>       
+        <div class="slider-dots">
+            </div>
+    </div>
+    <div class="container-full">
+        <div class="data-panel">
+            <h2>Sistem Data dan Navigasi Bantuan Rakyat Miskin</h2>
+            <hr>    
+            <h3>1. Muat Data Excel</h3>
+            <div class="input-group">
+                <label for="excel-file" class="btn-upload">Pilih File .xlsx</label>
+                <input type="file" id="excel-file" accept=".xlsx" hidden>
+                <p id="file-status">File: Belum ada file dipilih</p>
+
+
+                <p> Supaya datanya bisa terbaca, template untuk pengisian data (.xlxs) bisa <a href="files/data_template.xlsx" download class="btn-template">
+                    <u>download disini</u></a></p>
+            </div>
+            
+            <hr>
+
+            <h3>2. Pencarian Cepat (Khusus NIK)</h3>
+            <div class="search-group">
+                <input type="text" id="search-input" placeholder="Masukkan NIK untuk mencari..." onkeyup="validateNIKInput(event)">
+                <button id="search-btn">🔎</button>
+            </div>
+            
+            <div class="validation-feedback">
+                <p id="feedback-numeric" class="invalid">
+                    <span class="icon">❌</span> 1. Hanya berisi angka
+                </p>
+                <p id="feedback-length" class="invalid">
+                    <span class="icon">❌</span> 2. Minimal 8 digit
+                </p>
+            </div>
+            <hr>
+
+            <h3>3. Filter Wilayah <hr>
+                <span class="badge-info">Pilih Tingkat Administrasi</span>
+            <button id="reset-filter-btn" class="icon-reset" onclick="resetFilters()">🔄</button>
+            </h3>
+            
+            <div class="filter-group-container">
+                
+                <div class="filter-card">
+                    <label for="wilayah-filter">Wilayah / Kelurahan</label>
+                    <select id="wilayah-filter" onchange="filterData()">
+                        <option value="">-- SEMUA --</option>
+                    </select>
+                </div>
+
+                <div class="filter-card">
+                    <label for="rw-filter">Rukun Warga (RW)</label>
+                    <select id="rw-filter" onchange="filterData()">
+                        <option value="">-- SEMUA --</option>
+                    </select>
+                </div>
+
+                <div class="filter-card">
+                    <label for="rt-filter">Rukun Tetangga (RT)</label>
+                    <select id="rt-filter" onchange="filterData()">
+                        <option value="">-- SEMUA --</option>
+                    </select>
+                </div>
+
+            </div>
+            
+            <hr>
+
+            <h3>4. Daftar Penerima</h3>
+            <div id="data-table-container">
+                <div id="data-list">
+                    <p>Mohon unggah file Excel terlebih dahulu.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/lib/xlsx.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
